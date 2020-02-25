@@ -2,8 +2,8 @@ defmodule Duper.Gatherer do
   use GenServer
   @me Gatherer
 
-  def start_link(woker_count) do
-    GenServer.start_link(__MODULE__, woker_count, @me)
+  def start_link(worker_count) do
+    GenServer.start_link(__MODULE__, worker_count, name: @me)
   end
 
   def done() do
@@ -35,8 +35,9 @@ defmodule Duper.Gatherer do
     {:noreply, worker_count - 1}
   end
 
-  def handle_cast({:result, path, hash}) do
+  def handle_cast({:result, path, hash}, worker_count) do
     Duper.Results.add_hash_for(path, hash)
+    {:noreply, worker_count}
   end
 
   def report_result() do

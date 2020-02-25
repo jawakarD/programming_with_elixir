@@ -9,8 +9,9 @@ defmodule Duper.Application do
     children = [
       # Starts a worker by calling: Duper.Worker.start_link(arg)
       Duper.Results,
-      { Duper.PathFinder, "." },
+      {Duper.PathFinder, "/Users/jawakardurai/.oh-my-zsh/"},
       Duper.WorkerSupervisor,
+      {Duper.Gatherer, 2}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
