@@ -5,12 +5,12 @@ defmodule Sequence.Application do
 
   use Application
 
-  def start(_type, _args) do
+  def start(_type, _initial_number) do
     children = [
-      {Sequence.Stash, 123},
-      {Sequence.Server, nil},
-      {Sequence.StackStash, ["stack" , "for" , "the", "stack"]},
-      {Sequence.Stack, nil}
+      {Sequence.Stash, Application.get_env(:sequence, :initial_number)},
+      {Sequence.Server, nil}
+      # {Sequence.StackStash, Application.get_env(:sequence, :inital_stack)},
+      # {Sequence.Stack, nil}
     ]
 
     opts = [strategy: :rest_for_one, name: Sequence.Supervisor]
